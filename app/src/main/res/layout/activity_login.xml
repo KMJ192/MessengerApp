@@ -5,14 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:gravity="center_horizontal"
-        android:text="Login"
+        android:text="로그인 화면 ^------^"
         android:textColor="#000000"
         android:textSize="50dp"
         android:textStyle="bold" />
@@ -35,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="Input Email"
+                android:hint="Email을 입력해라 ^^7"
                 android:inputType="textPersonName"
                 android:gravity="center_horizontal"
                 android:layout_marginBottom="10dp"/>
@@ -55,10 +56,20 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:hint="Input Password"
+                android:hint="비번을 입력해라 ^^7"
                 android:gravity="center_horizontal" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/signup"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="40dp"
+            android:text="가입하기 ^^7"/>
 
         <Button
             android:id="@+id/email_login"
@@ -66,37 +77,28 @@
             android:layout_height="45dp"
             android:layout_weight="1"
             android:layout_marginRight="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="40dp"
-            android:text="Sign Up"/>
-
-        <Button
-            android:id="@+id/signin_email"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:layout_marginRight="40dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="40dp"
-            android:text="Login"/>
+            android:text="로그인하기 ^^7"/>
 
         <Button
-            android:id="@+id/signin_facebook"
+            android:id="@+id/facebook_signin_button"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_weight="1"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
-            android:text="Facebook Login"/>
+            android:text="페북으로 로그인하기 ^^7"/>
+
         <Button
-            android:id="@+id/signin_google"
+            android:id="@+id/google_signin_button"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_weight="1"
             android:layout_marginBottom="10dp"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
-            android:text="Google Login"/>
+            android:text="구글로 로그인 하기 ^^7"/>
 
 
     </LinearLayout>
