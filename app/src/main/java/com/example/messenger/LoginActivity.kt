@@ -93,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, GOOGLE_LOGIN_CODE)
     }
 
-    //Facebook HashKey Get => n2+wSsCCqMuZTxxu85ur7qpPz0s=
+    //Facebook HashKey Get
     fun PrintHashKey() {
         try {
             val info = packageManager
@@ -133,6 +133,7 @@ class LoginActivity : AppCompatActivity() {
 
             })
     }
+
     fun HandleFacebookAccessToken(token : AccessToken?){
         var credential = FacebookAuthProvider.getCredential(token?.token!!)
         //firebase로 로그인 Data를 넘겨줌
@@ -212,12 +213,6 @@ class LoginActivity : AppCompatActivity() {
                 //ID Password가 일치할 경우, MainPage로 이동하는 Function 호출
                 MoveMainPage(task.result?.user)
             }else{
-                //ID Password가 일치하지 않을 경우, 실패 Message 출력
-                Toast.makeText(this,
-                    "ID와 PW가 맞지 않습니다. 다시 입력해주세요",
-                    Toast.LENGTH_LONG
-                ).show()
-
                 Toast.makeText(
                     this,
                     task.exception?.message,
