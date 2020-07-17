@@ -1,0 +1,18 @@
+로그인 기능(Google, Facebook 연동 가능)
+프로필 View / Edit 기능
+친구 List View
+친구 추가 기능
+대화방 생성 기능
+대화방 List View
+1:1채팅 기능
+Image 전송 기능
+채팅 read/unread 표시 기능
+
+DB 구조
+Fcmld - 푸시기능
+Users - 유저 리스트 뷰 기능
+UserRooms (message room name)- 메시지 방 뷰 기능
+	Messages - 채팅 방 내 Message 뷰 기능
+	RoomUsers - 채팅방 내 유저 리스트 뷰 기능
+UserConnection - 유저별 접속 기능
+

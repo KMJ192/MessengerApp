@@ -15,5 +15,6 @@ class HomeFragment  : Fragment(){
     ): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_home, container, false)
         return view
+
     }
 }
