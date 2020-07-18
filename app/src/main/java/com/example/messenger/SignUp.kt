@@ -33,7 +33,7 @@ class SignUp : AppCompatActivity() {
             )?.addOnCompleteListener{
                     task -> if(task.isSuccessful) {
                 //회원가입 성공
-                MoveMainPage(task.result?.user)
+                MoveLoginPage(task.result?.user)
             }else if(!task.exception?.message.isNullOrEmpty()){
                 //회원가입 실패
                 Toast.makeText(
@@ -54,11 +54,11 @@ class SignUp : AppCompatActivity() {
     }
 
     //회원가입 성공 후 Main페이지로 이동
-    fun MoveMainPage(user : FirebaseUser?){
+    fun MoveLoginPage(user : FirebaseUser?){
         if(user != null){
             startActivity(Intent(
                 this,
-                MainActivity::class.java)
+                LoginActivity::class.java)
             )
         }
     }

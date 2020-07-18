@@ -1,3 +1,3 @@
 package com.example.messenger.Model
 
-class User(var uid : String, username : String){}
+class User(val uid : String, val username : String){}

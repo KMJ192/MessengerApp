@@ -5,9 +5,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.example.messenger.navigation.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+
+//    private lateinit var auth : Firebase
+//    private val TAG : String = MainActivity::class.java.simpleName
+
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when(p0.itemId){
             R.id.action_main -> {
@@ -43,6 +48,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottom_navigation.setOnNavigationItemSelectedListener(this)
+
+
+
 
     }
 }

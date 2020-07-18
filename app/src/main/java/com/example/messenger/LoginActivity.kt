@@ -7,6 +7,7 @@ import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.messenger.Model.User
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -22,6 +23,8 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_login.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -35,6 +38,9 @@ class LoginActivity : AppCompatActivity() {
     var googleSignInClient : GoogleSignInClient? = null
     var GOOGLE_LOGIN_CODE = 9001
     var callbackManager : CallbackManager? = null
+
+    private val TAG : String = LoginActivity::class.java.simpleName
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -208,7 +214,8 @@ class LoginActivity : AppCompatActivity() {
             password_edittext.text.toString()
         )?.addOnCompleteListener{
             task -> if(task.isSuccessful) {
-                //ID Password가 일치할 경우, MainPage로 이동하는 Function 호출
+                UserDataGet()
+                //ID Password가 일치할 경우, MainPage로 이동하는 Function 호출(Login 성공)
                 MoveMainPage(task.result?.user)
             }else{
                 Toast.makeText(
@@ -235,5 +242,22 @@ class LoginActivity : AppCompatActivity() {
         startActivity(Intent(
             this@LoginActivity,
             SignUp::class.java))
+    }
+
+    fun UserDataGet(){
+        //DB에 Data Input
+        val uid = FirebaseAuth.getInstance().uid ?: ""
+        //uid => 파이어베이스 Authentication
+        //username => 이메일
+        val user = User(uid, email_edittext.text.toString())
+        val db = FirebaseFirestore.getInstance().collection("users")//collection이름을 "users"로 설정
+        db.document(uid)
+            .set(user)
+            .addOnSuccessListener {
+                Log.d("DB유무", "DB 성공, uid : $uid")
+            }
+            .addOnFailureListener{
+                Log.d("DB유무", "DB 실패, uid : $uid")
+            }
     }
 }
