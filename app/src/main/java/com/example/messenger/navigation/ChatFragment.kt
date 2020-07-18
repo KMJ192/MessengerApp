@@ -14,25 +14,14 @@ import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_chat.*
 
 class ChatFragment  : Fragment(){
-
     private val TAG = ChatFragment::class.java.simpleName
     val db : FirebaseFirestore = FirebaseFirestore.getInstance()
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = GroupAdapter<GroupieViewHolder>()
-        db.collection("users")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    adapter.add(ChatListItem(document.get("username").toString()))
-                    Log.d(TAG, "username => ${document.get("username").toString()}, ${document.id} => ${document.data}")
-                }
-                chat_list.adapter = adapter
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents.", exception)
-            }
+
+        //RecyclerView를 초기화 하는 Function Call
+        initRecyclerView()
     }
 
     override fun onCreateView(
@@ -44,5 +33,25 @@ class ChatFragment  : Fragment(){
         val view = LayoutInflater.from(activity).inflate(R.layout.fragment_chat, container, false)
 
         return view
+    }
+
+    fun initRecyclerView(){
+        val adapter = GroupAdapter<GroupieViewHolder>()
+
+        //firebase의 DB에서 collectionPath가 users이고 필드가 username인 Data를 RecyclerView로 출력
+        db.collection("users")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    //username을 받아서 adapter에 push
+                    adapter.add(ChatListItem(document.get("username").toString()))
+                    Log.d(TAG, "username => ${document.get("username").toString()}, ${document.id} => ${document.data}")
+                }
+                //recyclerview(chat_list)에 adapter input
+                chat_list.adapter = adapter
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }
     }
 }
