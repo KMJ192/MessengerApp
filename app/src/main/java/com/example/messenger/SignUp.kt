@@ -44,11 +44,11 @@ class SignUp : AppCompatActivity() {
             }else{
                 //회원가입과 에러가 아닐 경우, 로그인 화면으로 이동
                 //Login Function
-            startActivity(
-                Intent(
-                    this,
-                    LoginActivity::class.java)
-                )
+                startActivity(
+                    Intent(
+                        this,
+                        LoginActivity::class.java)
+                    )
             }
         }
     }

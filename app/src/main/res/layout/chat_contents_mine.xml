@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="name"
+            android:text="나"
             android:textSize="22sp"
             android:textColor="#000000"
             android:gravity="right"
@@ -22,9 +22,9 @@
             tools:ignore="RtlHardcoded"/>
 
         <TextView
+            android:id="@+id/mine_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="message"
             android:textColor="#000000"
             android:textSize="30sp"
             android:gravity="right"

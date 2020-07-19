@@ -2,12 +2,15 @@ package com.example.messenger
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.example.messenger.Adapter.ChatContentsMine
 import com.example.messenger.Adapter.ChatContentsOthers
 import com.example.messenger.Model.ChatModel
 import com.example.messenger.navigation.ChatFragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -42,44 +45,80 @@ class ChattingRoomActivity : AppCompatActivity() {
         message_contents.adapter = adapter
 
         //DB의 내용 Output
-        db.collection("message")
-            .get()
-            .addOnSuccessListener {result ->
-                //Firebase에 있는 내용 Loop
-                for(document in result){
-                    val senderUid = document.get("myUid")
-                    val msg = document.get("msg")
+//        db.collection("message")
+//            .orderBy("time")
+//            .get()
+//            .addOnSuccessListener {result ->
+//                //Firebase에 있는 내용 Loop
+//                for(document in result){
+//                    val senderUid = document.get("myUid")
+//                    val msg = document.get("message").toString()
+//
+//                    //채팅방의 내용을 출력함
+//                    if(senderUid == myUid){
+//                        //DB의 Uid가 접속중인 User의 Uid와 일치
+//                        adapter.add(ChatContentsMine(msg))
+//                    }else{
+//                        //DB의 Uid가 접속중인 User의 Uid와 비일치
+//                        adapter.add(ChatContentsOthers(msg))
+//                    }
+//                }
+//            }
+//            .addOnFailureListener{
+//
+//            }
 
-                    //채팅방의 내용을 출력함
-                    if(senderUid == myUid){
-                        //DB의 Uid가 접속중인 User의 Uid와 일치
-                        adapter.add(ChatContentsMine())
-                    }else{
-                        //DB의 Uid가 접속중인 User의 Uid와 비일치
-                        adapter.add(ChatContentsOthers())
-                    }
+        //리얼타임 DB
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("message")
+        val readRef =database.getReference("message").child(myUid.toString()).child(othersUid)
+
+        val childEventListener = object: ChildEventListener{
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val model = snapshot.getValue(ChatModel::class.java)
+
+                val msg = model?.message.toString()
+                val who = model?.who.toString()
+
+                if(who == "mine"){
+                    adapter.add(ChatContentsMine(msg))
+                }else{
+                    adapter.add(ChatContentsOthers(msg))
                 }
             }
-            .addOnFailureListener{
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
 
             }
 
+        }
+
+        message_contents.adapter = adapter
+        readRef.addChildEventListener(childEventListener)
+
+        //확인 버튼 클릭시 DB로 Message 전송
         button_inputContent.setOnClickListener{
             val message = edit_text_chat.text.toString()
-            edit_text_chat.setText("") //textbox 내용 제거
+            edit_text_chat.setText("")
 
-            //DB에 message 내용 push
-            val chat = ChatModel(myUid, othersName, othersUid)
-            db.collection("message")
-                .add(chat)
-                .addOnSuccessListener {
-                    //Success input message to DB
-                    Log.d(TAG, "message input Success")
-                }
-                .addOnFailureListener{
-                    //Failed input message to DB
-                    Log.d(TAG, "message input Failed")
-                }
+            val chat_mine = ChatModel(myUid, othersUid, message, System.currentTimeMillis(), "mine")
+            myRef.child(myUid.toString()).child(othersUid).push().setValue(chat_mine)
+
+            val chat_others = ChatModel(othersUid, myUid, message, System.currentTimeMillis(), "others")
+            myRef.child(othersUid).child(myUid.toString()).push().setValue(chat_others)
+
 
         }
     }
