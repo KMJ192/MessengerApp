@@ -1,11 +1,14 @@
 package com.example.messenger.navigation
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.messenger.ChattingRoomActivity
+import com.example.messenger.MainActivity
 import com.example.messenger.Model.ChatListItem
 import com.example.messenger.R
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,6 +25,7 @@ class ChatFragment  : Fragment(){
 
         //RecyclerView를 초기화 하는 Function Call
         initRecyclerView()
+
     }
 
     override fun onCreateView(
@@ -51,7 +55,16 @@ class ChatFragment  : Fragment(){
                 chat_list.adapter = adapter
             }
             .addOnFailureListener { exception ->
+                //Firebase와의 연결에 실패함.
                 Log.w(TAG, "Error getting documents.", exception)
             }
+    
+        //adapter를 클릭하면 해당 ChatRoom으로 입장
+        //Parameter 2개 -> Expected 2 parameters of types Item<(raw) GroupieViewHolder!>, View
+        adapter.setOnItemClickListener{ _, _ ->
+            //Fragment에서 intent할 때 ".context" keyword 붙여서 보내기
+            val intent = Intent(this@ChatFragment.context, ChattingRoomActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

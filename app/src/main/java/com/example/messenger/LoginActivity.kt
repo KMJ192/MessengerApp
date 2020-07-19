@@ -24,7 +24,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_login.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -230,7 +229,8 @@ class LoginActivity : AppCompatActivity() {
     //로그인 성공 후 MainPage로 이동하는 Function
     fun MoveMainPage(user : FirebaseUser?){
         if(user != null){
-            startActivity(Intent(
+            startActivity(
+                Intent(
                 this@LoginActivity,
                 MainActivity::class.java)
             )
