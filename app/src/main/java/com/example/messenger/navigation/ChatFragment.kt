@@ -8,8 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.messenger.ChattingRoomActivity
-import com.example.messenger.MainActivity
-import com.example.messenger.Model.ChatListItem
+import com.example.messenger.Adapter.ChatListItem
 import com.example.messenger.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.xwray.groupie.GroupAdapter
@@ -48,7 +47,12 @@ class ChatFragment  : Fragment(){
             .addOnSuccessListener { result ->
                 for (document in result) {
                     //username을 받아서 adapter에 push
-                    adapter.add(ChatListItem(document.get("username").toString()))
+                    adapter.add(
+                        ChatListItem(
+                            document.get("username").toString(),
+                            document.get("uid").toString()
+                        )
+                    )
                     Log.d(TAG, "username => ${document.get("username").toString()}, ${document.id} => ${document.data}")
                 }
                 //recyclerview(chat_list)에 adapter input
@@ -61,9 +65,19 @@ class ChatFragment  : Fragment(){
     
         //adapter를 클릭하면 해당 ChatRoom으로 입장
         //Parameter 2개 -> Expected 2 parameters of types Item<(raw) GroupieViewHolder!>, View
-        adapter.setOnItemClickListener{ _, _ ->
+        adapter.setOnItemClickListener{ item, view ->
+
+            //item과 uid 값을 받아옴
+            val name : String = (item as ChatListItem).name
+            val uid : String = (item as ChatListItem).uid
+
             //Fragment에서 intent할 때 ".context" keyword 붙여서 보내기
             val intent = Intent(this@ChatFragment.context, ChattingRoomActivity::class.java)
+
+            //adapter(ChatRoom)의 상대 name(email)과 uid를 ChatRoomActivity로 넘겨줌
+            intent.putExtra("othersName", name)
+            intent.putExtra("othersUid", uid)
+            
             startActivity(intent)
         }
     }

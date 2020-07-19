@@ -8,12 +8,11 @@
     tools:context=".ChattingRoomActivity"
     android:orientation="vertical">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/message_contents"
         android:layout_width="match_parent"
-        android:layout_height="685dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_height="600dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <RelativeLayout
         android:id="@+id/bottom"
@@ -25,20 +24,19 @@
         <EditText
             android:id="@+id/edit_text_chat"
             android:layout_width="320dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:ems="10"
             android:inputType="text"
             android:autofillHints=""
-            tools:ignore="LabelFor" />
+            tools:ignore="LabelFor"/>
 
         <Button
-            android:id="@+id/button_confirm"
+            android:id="@+id/button_inputContent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:text="@string/send_button"
             android:layout_toEndOf="@+id/edit_text_chat"/>
 
     </RelativeLayout>
-
 
 </RelativeLayout>
