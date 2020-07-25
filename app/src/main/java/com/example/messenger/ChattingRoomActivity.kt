@@ -2,6 +2,7 @@ package com.example.messenger
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import com.example.messenger.Adapter.ChatContentsMine
 import com.example.messenger.Adapter.ChatContentsOthers
 import com.example.messenger.Model.ChatModel
@@ -27,6 +28,8 @@ class ChattingRoomActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chatting_room)
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
         //Message를 DB로 Input, Output하는 Function
         ChatMessage(db)
 
@@ -43,30 +46,6 @@ class ChattingRoomActivity : AppCompatActivity() {
 
         //RecyclerView에 Adapter연결
         message_contents.adapter = adapter
-
-        //DB의 내용 Output
-//        db.collection("message")
-//            .orderBy("time")
-//            .get()
-//            .addOnSuccessListener {result ->
-//                //Firebase에 있는 내용 Loop
-//                for(document in result){
-//                    val senderUid = document.get("myUid")
-//                    val msg = document.get("message").toString()
-//
-//                    //채팅방의 내용을 출력함
-//                    if(senderUid == myUid){
-//                        //DB의 Uid가 접속중인 User의 Uid와 일치
-//                        adapter.add(ChatContentsMine(msg))
-//                    }else{
-//                        //DB의 Uid가 접속중인 User의 Uid와 비일치
-//                        adapter.add(ChatContentsOthers(msg))
-//                    }
-//                }
-//            }
-//            .addOnFailureListener{
-//
-//            }
 
         //리얼타임 DB
         val database = FirebaseDatabase.getInstance()
@@ -118,8 +97,6 @@ class ChattingRoomActivity : AppCompatActivity() {
 
             val chat_others = ChatModel(othersUid, myUid, message, System.currentTimeMillis(), "others")
             myRef.child(othersUid).child(myUid.toString()).push().setValue(chat_others)
-
-
         }
     }
 }
