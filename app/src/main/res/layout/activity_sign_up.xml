@@ -53,7 +53,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            android:hint="password"/>
+            android:hint="password"
+            android:layout_marginBottom="100dp"/>
 
         <Button
             android:id="@+id/signup_button"

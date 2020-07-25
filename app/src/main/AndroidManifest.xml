@@ -18,8 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoadingWindow" />
-        <activity android:name=".ChattingRoomActivity" />
-        <activity android:name=".SignUp" />
+        <activity android:name=".ChattingRoomActivity"/>
+        <activity android:name=".SignUp"/>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />

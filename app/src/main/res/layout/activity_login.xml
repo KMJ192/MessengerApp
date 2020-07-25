@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:gravity="center_horizontal"
-        android:text="SignIn Screen"
+        android:text="Login Screen"
         android:textColor="#000000"
         android:textSize="50dp"
         android:textStyle="bold" />
@@ -57,48 +57,32 @@
                 android:ems="10"
                 android:inputType="textPassword"
                 android:hint="password"
-                android:gravity="center_horizontal" />
+                android:gravity="center_horizontal"/>
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/signup"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="40dp"
-            android:text="SignUp"/>
 
         <Button
             android:id="@+id/email_login"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_weight="1"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="40dp"
-            android:text="SignIn"/>
+            android:text="Login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="15dp"/>
 
         <Button
-            android:id="@+id/facebook_signin_button"
+            android:id="@+id/signup"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_weight="1"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
-            android:text="FACEBOOK"/>
-
-        <Button
-            android:id="@+id/google_signin_button"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
-            android:text="GOOGLE"/>
+            android:text="SignUp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="40dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"/>
 
 
     </LinearLayout>

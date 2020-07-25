@@ -2,6 +2,7 @@ package com.example.messenger
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import com.example.messenger.Adapter.ChatContentsMine
 import com.example.messenger.Adapter.ChatContentsOthers
 import com.example.messenger.Model.ChatModel
@@ -26,6 +27,8 @@ class ChattingRoomActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chatting_room)
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         //Message를 DB로 Input, Output하는 Function
         ChatMessage(db)
@@ -94,8 +97,6 @@ class ChattingRoomActivity : AppCompatActivity() {
 
             val chat_others = ChatModel(othersUid, myUid, message, System.currentTimeMillis(), "others")
             myRef.child(othersUid).child(myUid.toString()).push().setValue(chat_others)
-
-
         }
     }
 }
