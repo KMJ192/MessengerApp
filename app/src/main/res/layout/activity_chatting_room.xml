@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chat_room_scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ChattingRoomActivity"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/message_contents"
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:layout_height="match_parent"
+        tools:context=".ChattingRoomActivity"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/edit_text_chat"
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:inputType="text"
-            android:layout_below="@+id/message_contents"/>
-        <Button
-            android:id="@+id/button_inputContent"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="@string/send_button"
-            android:layout_toEndOf="@+id/edit_text_chat"
-            android:layout_below="@+id/message_contents"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/message_contents"
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+                <EditText
+                    android:id="@+id/edit_text_chat"
+                    android:layout_width="320dp"
+                    android:layout_height="50dp"
+                    android:inputType="text"
+                    android:layout_below="@+id/message_contents"/>
+                <Button
+                    android:id="@+id/button_inputContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="@string/send_button"
+                    android:layout_toEndOf="@+id/edit_text_chat"
+                    android:layout_below="@+id/message_contents"/>
+    </RelativeLayout>
 
-</RelativeLayout>
+</ScrollView>

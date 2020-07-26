@@ -24,9 +24,21 @@ class ChattingRoomActivity : AppCompatActivity() {
 
     private lateinit var auth : FirebaseAuth
 
+    private lateinit var keyboardVisibilityUtils: KeyboardVisibleUtils
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chatting_room)
+
+        keyboardVisibilityUtils = KeyboardVisibleUtils(
+            window,
+            onShowKeyboard = {
+                keyboardHeight ->
+                chat_room_scroll.run{
+                    smoothScrollTo(scrollX, scrollY + keyboardHeight)
+                }
+            }
+        )
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
@@ -98,5 +110,10 @@ class ChattingRoomActivity : AppCompatActivity() {
             val chat_others = ChatModel(othersUid, myUid, message, System.currentTimeMillis(), "others")
             myRef.child(othersUid).child(myUid.toString()).push().setValue(chat_others)
         }
+    }
+
+    override fun onDestroy() {
+        keyboardVisibilityUtils.detachKeyboardListener()
+        super.onDestroy()
     }
 }
