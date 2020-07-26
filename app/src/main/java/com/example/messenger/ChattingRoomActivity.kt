@@ -1,8 +1,8 @@
 package com.example.messenger
 
 import android.os.Bundle
+import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.messenger.Adapter.ChatContentsMine
 import com.example.messenger.Adapter.ChatContentsOthers
 import com.example.messenger.Model.ChatModel
@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.activity_chatting_room.*
+
 
 class ChattingRoomActivity : AppCompatActivity() {
 
@@ -36,10 +37,18 @@ class ChattingRoomActivity : AppCompatActivity() {
             onShowKeyboard = {
                 keyboardHeight ->
                 chat_room_scroll.run{
-                    smoothScrollTo(scrollX, scrollY + keyboardHeight)
+                    smoothScrollTo(scrollX, scrollY + keyboardHeight + 10)
                 }
             }
         )
+
+        //Recycler View의 가장 아래로 가는 Logic
+        message_contents.post(Runnable {
+            message_contents.scrollToPosition(
+                message_contents.getAdapter()!!.getItemCount() - 1
+            )
+        })
+
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         //Message를 DB로 Input, Output하는 Function

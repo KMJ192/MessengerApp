@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoadingWindow" />
-        <activity android:name=".ChattingRoomActivity"/>
+        <activity android:name=".ChattingRoomActivity"
+            android:windowSoftInputMode="stateUnspecified|adjustUnspecified"/>
         <activity android:name=".SignUp"/>
         <activity
             android:name=".SettingsActivity"
