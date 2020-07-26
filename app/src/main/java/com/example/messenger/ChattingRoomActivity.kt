@@ -1,8 +1,8 @@
 package com.example.messenger
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.messenger.Adapter.ChatContentsMine
 import com.example.messenger.Adapter.ChatContentsOthers
 import com.example.messenger.Model.ChatModel
@@ -31,6 +31,7 @@ class ChattingRoomActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chatting_room)
 
         keyboardVisibilityUtils = KeyboardVisibleUtils(
+            //키보드 활성화 시 ScrollView 활성화
             window,
             onShowKeyboard = {
                 keyboardHeight ->
@@ -39,15 +40,14 @@ class ChattingRoomActivity : AppCompatActivity() {
                 }
             }
         )
-
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         //Message를 DB로 Input, Output하는 Function
         ChatMessage(db)
-
     }
 
     fun ChatMessage(db : FirebaseFirestore){
+
         val adapter = GroupAdapter<GroupieViewHolder>()
 
         auth = FirebaseAuth.getInstance()
@@ -62,7 +62,7 @@ class ChattingRoomActivity : AppCompatActivity() {
         //리얼타임 DB
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("message")
-        val readRef =database.getReference("message").child(myUid.toString()).child(othersUid)
+        val readRef = database.getReference("message").child(myUid.toString()).child(othersUid)
 
         val childEventListener = object: ChildEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -93,10 +93,7 @@ class ChattingRoomActivity : AppCompatActivity() {
             override fun onChildRemoved(snapshot: DataSnapshot) {
 
             }
-
         }
-
-        message_contents.adapter = adapter
         readRef.addChildEventListener(childEventListener)
 
         //확인 버튼 클릭시 DB로 Message 전송
@@ -110,6 +107,8 @@ class ChattingRoomActivity : AppCompatActivity() {
             val chat_others = ChatModel(othersUid, myUid, message, System.currentTimeMillis(), "others")
             myRef.child(othersUid).child(myUid.toString()).push().setValue(chat_others)
         }
+
+        //message_contents.smoothScrollToPosition(data.size()-1);
     }
 
     override fun onDestroy() {
