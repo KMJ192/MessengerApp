@@ -21,10 +21,8 @@ class ChatFragment  : Fragment(){
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         //RecyclerView를 초기화 하는 Function Call
         initRecyclerView()
-
     }
 
     override fun onCreateView(
@@ -53,7 +51,6 @@ class ChatFragment  : Fragment(){
                             document.get("uid").toString()
                         )
                     )
-                    Log.d(TAG, "username => ${document.get("username").toString()}, ${document.id} => ${document.data}")
                 }
                 //recyclerview(chat_list)에 adapter input
                 chat_list.adapter = adapter

@@ -13,5 +13,4 @@ class ChatListItem(val name : String, val uid : String) : Item<GroupieViewHolder
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.user_email.text = name
     }
-
 }
