@@ -21,4 +21,6 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="send_button">확인</string>
+    <string name="success">Success</string>
+    <string name="failed">Failed</string>
 </resources>
